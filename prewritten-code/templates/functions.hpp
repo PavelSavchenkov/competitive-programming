@@ -84,8 +84,14 @@ double get_time() {
     return static_cast<double>(clock()) / CLOCKS_PER_SEC;
 }
 
-uint mrand() {
+uint32_t mrand_32t() {
     static std::random_device rd;
     static std::mt19937 rng(rd());
+    return rng();
+}
+
+uint64_t mrand_64t() {
+    static std::random_device rd;
+    static std::mt19937_64 rng(rd());
     return rng();
 }
