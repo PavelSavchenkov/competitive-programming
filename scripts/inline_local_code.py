@@ -1,3 +1,4 @@
+from common import smart_strip
 import os
 import sys
 import time
@@ -19,9 +20,6 @@ dst_file_path = os.path.abspath(dst_file_path)
 if os.path.exists(dst_file_path):
     os.remove(dst_file_path)
 
-def my_strip(line):
-    return " ".join(line.strip().split())
-
 def get_abspath_relative(start_path, relative_file_path):
     while True:
         candidate = os.path.join(start_path, relative_file_path)
@@ -31,7 +29,7 @@ def get_abspath_relative(start_path, relative_file_path):
         start_path = os.path.dirname(start_path)
 
 def parse_include(line):
-    line = my_strip(line)
+    line = smart_strip(line)
     if not line.startswith("#include"):
         return None
     tokens = line.split()
@@ -70,7 +68,7 @@ def register_line(line):
     have_includes.add(path)
 
 def should_skip_line(line):
-    line = my_strip(line)
+    line = smart_strip(line)
     if line == "#pragma once":
         return True
     parsed = parse_include(line)

@@ -1,6 +1,7 @@
 import sys
 import os
 import shutil
+from common import smart_strip
 
 for i in range(1, len(sys.argv)):
     task_name = sys.argv[i]
@@ -13,5 +14,16 @@ for i in range(1, len(sys.argv)):
     shutil.copyfile(os.path.join('prewritten-code', 'templates', 'main.cpp'), os.path.join(task_path, 'main.cpp'))
     open(os.path.join(task_path, 'a.in'), 'w')
 
-    with open(os.path.join(tasks_base, 'CMakeLists.txt'), 'a+') as CMakeLists:
-        CMakeLists.write("\nadd_executable(%s %s/main.cpp)\n" % (task_name, task_name))
+    def gen_line(T):
+        return "add_executable(%s %s/main.cpp)" % (T, T)
+
+    cmake_filename = os.path.join(tasks_base, 'CMakeLists.txt')
+    lines = list(map(smart_strip, open(cmake_filename, 'r').readlines())) if os.path.exists(cmake_filename) else []
+    lines = [line for line in lines if line]
+    cur_line = gen_line(task_name)
+    if cur_line not in lines:
+        lines.append(cur_line)
+    lines = sorted(lines)
+    lines = [line+"\n\n" for line in lines]
+
+    open(cmake_filename, 'w').writelines(lines)
