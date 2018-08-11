@@ -23,7 +23,7 @@ int main() {
 #ifdef LOCAL
     #define FILE_NAME "a"
     assert(freopen(FILE_NAME ".in", "r", stdin));
-    freopen(FILE_NAME ".out", "w", stdout);
+//    freopen(FILE_NAME ".out", "w", stdout);
 #endif
 
     while (read()) {
