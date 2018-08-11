@@ -25,6 +25,8 @@ int main() {
     cin.tie(nullptr);
     ios_base::sync_with_stdio(false);
     cout.tie(nullptr);
+    cout.precision(12);
+    cout << fixed;
 
 #ifdef LOCAL
     #define FILE_NAME "a"

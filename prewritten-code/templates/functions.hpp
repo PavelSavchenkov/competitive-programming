@@ -4,6 +4,7 @@
 #include <set>
 #include <map>
 #include <ostream>
+#include <random>
 
 template<typename T>
 int sign(const T& t) {
@@ -81,4 +82,10 @@ std::ostream& operator <<(std::ostream& os, const std::map<K, V>& m) {
 
 double get_time() {
     return static_cast<double>(clock()) / CLOCKS_PER_SEC;
+}
+
+uint mrand() {
+    static std::random_device rd;
+    static std::mt19937 rng(rd());
+    return rng();
 }
