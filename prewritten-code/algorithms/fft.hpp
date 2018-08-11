@@ -150,9 +150,9 @@ public:
         std::vector<outT> res(N);
         for (int i = 0; i < N; ++i) {
             const T val = C[i].real();
-            const auto intVal = static_cast<outT>(std::round(val));
-            assert(std::fabs(val - intVal) < 0.2);
-            res[i] = intVal;
+            const auto outVal = static_cast<outT>(std::round(val));
+            assert(std::fabs(val - outVal) < 0.2);
+            res[i] = outVal;
         }
         while (!res.empty() && res.back() == 0) {
             res.pop_back();
