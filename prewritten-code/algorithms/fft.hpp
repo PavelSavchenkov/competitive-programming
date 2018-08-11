@@ -111,7 +111,8 @@ public:
         roots.push_back(TT(1));
     }
 
-    std::vector<int> multiply(const std::vector<int>& a, const std::vector<int>& b) {
+    template<typename outT, typename inT>
+    std::vector<outT> multiply(const std::vector<inT>& a, const std::vector<inT>& b) {
         int logn = 0;
         while ((1 << logn) <= std::max(a.size(), b.size())) {
             ++logn;
@@ -146,10 +147,10 @@ public:
         }
         fft(C.data(), logn, true);
 
-        std::vector<int> res(N);
+        std::vector<outT> res(N);
         for (int i = 0; i < N; ++i) {
             const T val = C[i].real();
-            const int intVal = static_cast<int>(std::round(val));
+            const auto intVal = static_cast<outT>(std::round(val));
             assert(std::fabs(val - intVal) < 0.2);
             res[i] = intVal;
         }
@@ -159,11 +160,12 @@ public:
         return res;
     }
 
-    std::vector<int> slowMultiply(const std::vector<int>& a, const std::vector<int>& b) {
-        std::vector<int> res(a.size() + b.size());
+    template<typename outT, typename inT>
+    std::vector<outT> slowMultiply(const std::vector<inT>& a, const std::vector<inT>& b) {
+        std::vector<outT> res(a.size() + b.size());
         for (size_t i = 0; i < a.size(); ++i) {
             for (size_t j = 0; j < b.size(); ++j) {
-                res[i + j] += a[i] * b[j];
+                res[i + j] += outT(a[i]) * outT(b[j]);
             }
         }
         while (!res.empty() && res.back() == 0) {

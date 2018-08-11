@@ -2,6 +2,8 @@
 
 #include <vector>
 #include <set>
+#include <map>
+#include <ostream>
 
 template<typename T>
 int sign(const T& t) {
@@ -77,3 +79,6 @@ std::ostream& operator <<(std::ostream& os, const std::map<K, V>& m) {
     return os;
 }
 
+double get_time() {
+    return static_cast<double>(clock()) / CLOCKS_PER_SEC;
+}
