@@ -3,3 +3,4 @@
 cmake-build-*
 tasks
 to_submit.cpp
+__pycache__/
