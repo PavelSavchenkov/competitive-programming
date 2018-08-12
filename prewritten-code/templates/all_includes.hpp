@@ -19,3 +19,5 @@
 #include <complex>
 #include <vector>
 #include <random>
+#include <ctime>
+#include <ostream>
