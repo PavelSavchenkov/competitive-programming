@@ -50,7 +50,7 @@ std::ostream& operator <<(std::ostream& os, const std::vector<T>& vec) {
         os << it;
         first = false;
     }
-    os << " }" << "\n";
+    os << " }";
     return os;
 }
 
@@ -65,7 +65,7 @@ std::ostream& operator <<(std::ostream& os, const std::set<T>& s) {
         os << it;
         first = false;
     }
-    os << " }" << "\n";
+    os << " }";
     return os;
 }
 

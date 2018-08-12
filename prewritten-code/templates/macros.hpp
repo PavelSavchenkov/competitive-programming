@@ -21,7 +21,9 @@
 
 #ifdef LOCAL
     #define eprintf(...) fprintf(stderr, __VA_ARGS__), fflush(stderr)
+    #define debug(x) cerr << #x " = " << x << endl;
 #else
-#define eprintf(...)
+    #define eprintf(...)
     #define cerr if (false) cerr
+    #define debug(x)
 #endif
