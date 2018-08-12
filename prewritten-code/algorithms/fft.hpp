@@ -114,7 +114,7 @@ public:
     template<typename outT, typename inT>
     std::vector<outT> multiply(const std::vector<inT>& a, const std::vector<inT>& b) {
         int logn = 0;
-        while ((1 << logn) <= std::max(a.size(), b.size())) {
+        while ((1 << logn) < std::max(a.size(), b.size())) {
             ++logn;
         }
         ++logn;
@@ -191,18 +191,29 @@ private:
                 }
                 roots[startCur + i] = res;
             }
+            if (maxLogn == wantLogn) {
+                rev.resize(N);
+                for (int i = 1; i < N; ++i) {
+                    rev[i] = (rev[i >> 1] >> 1) ^ ((i & 1) << (maxLogn - 1));
+                }
+            }
         }
     }
 
     void fft(TT* a, int logn, bool inv) {
         const int N = 1 << logn;
-        std::vector<int> rev(N);
-        for (int i = 1; i < N; ++i) {
-            rev[i] = (rev[i >> 1] >> 1) ^ ((i & 1) << (logn - 1));
-        }
+        const int shift = maxLogn - logn;
+        assert(shift >= 0);
         for (int i = 0; i < N; ++i) {
-            if (i < rev[i]) {
-                std::swap(a[i], a[rev[i]]);
+            const int j = rev[i] >> shift;
+            if (i < j) {
+                std::swap(a[i], a[j]);
+            }
+        }
+
+        if (inv) {
+            for (int i = 0; i < N; ++i) {
+                a[i] /= N;
             }
         }
 
@@ -211,15 +222,9 @@ private:
             const TT* cur_roots = &roots[ptr]; // block = (len*2)
             for (int j = 0; j < N; j += len * 2) {
                 for (int i = 0; i < len; ++i) {
-                    const TT& root = cur_roots[i];
-                    const TT x = a[j + i];
-                    const TT y = a[j + len + i];
-                    a[j + i] = x + root * y;
-                    a[j + len + i] = x - root * y;
-                    if (inv) {
-                        a[j + i] /= 2;
-                        a[j + len + i] /= 2;
-                    }
+                    const auto z = cur_roots[i] * a[j + i + len];
+                    a[j + i + len] = a[j + i] - z;
+                    a[j + i] = a[j + i] + z;
                 }
             }
             ptr += len * 2;
@@ -230,5 +235,6 @@ private:
     }
 
     std::vector<TT> roots; // [len = 2**0] [len = 2**1] ... [len = 2**max_logn]
+    std::vector<int> rev;
     int maxLogn;
 };
