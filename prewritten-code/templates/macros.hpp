@@ -19,3 +19,7 @@
 #define forn_3(i, s, n) for (int i = int(s); i < int(n); ++i)
 #define forn_2(i, n) forn_3(i, 0, n)
 
+#define y1 y1___
+#define prev prev___
+#define next next___
+#define hash hash___
