@@ -10,6 +10,8 @@
 #define sz(c) int((c).size())
 #define all(c) begin(c), end(c)
 #define mp(x, y) make_pair(x, y)
+#define fst first
+#define snd second
 
 #define ford(...) SELECT_MACRO(ford, __VA_ARGS__)
 #define ford_3(i, s, n) for (int i = int(n) - 1; i >= int(s); --i)
