@@ -5,45 +5,75 @@
 #include <map>
 #include <vector>
 
-template<typename T>
-std::ostream& operator <<(std::ostream& os, const std::vector<T>& vec) {
-    os << "{ ";
-    bool first = true;
-    for (const auto& it : vec) {
-        if (!first) {
-            os << ", ";
-        }
-        os << it;
-        first = false;
-    }
-    os << " }";
-    return os;
+namespace std {
+
+template<typename A, typename B>
+string to_string(const pair<A, B>& p) {
+    string str;
+    str += "(";
+    str += to_string(p.first);
+    str += ", ";
+    str += to_string(p.second);
+    str += ")";
+    return str;
+}
+
+string to_string(bool value) {
+    return value ? "true" : "false";
+}
+
+string to_string(const char* s) {
+    return string(s);
 }
 
 template<typename T>
-std::ostream& operator <<(std::ostream& os, const std::set<T>& s) {
-    os << "{ ";
+string to_string(const vector<T>& vec) {
+    string str = "{ ";
+    bool first = true;
+    for (const auto& it : vec) {
+        if (!first) {
+            str += ", ";
+        }
+        str += to_string(it);
+        first = false;
+    }
+    str += " }";
+    return str;
+}
+
+template<typename T>
+string to_string(const set<T>& s) {
+    string str = "{ ";
     bool first = true;
     for (const auto& it : s) {
         if (!first) {
-            os << ", ";
+            str += ", ";
         }
-        os << it;
+        str += to_string(it);
         first = false;
     }
-    os << " }";
-    return os;
+    str += " }";
+    return str;
 }
 
 
 template<typename K, typename V>
-std::ostream& operator <<(std::ostream& os, const std::map<K, V>& m) {
-    os << "{" << "\n";
+string to_string(const map<K, V>& m) {
+    string str = "{ ";
+    bool first = true;
     for (const auto& it : m) {
-        os << " " << it.first << " -> " << it.second << "\n";
+        if (!first) {
+            str += ", ";
+        }
+        first = false;
+        str += to_string(it.first);
+        str += " -> ";
+        str += to_string(it.second);
     }
-    os << "}" << "\n";
-    return os;
+    str += " }";
+    return str;
+}
+
 }
 
 void debug_out() {
@@ -52,7 +82,7 @@ void debug_out() {
 
 template<typename Head, typename... Tail>
 void debug_out(Head H, Tail... T) {
-    std::cerr << " " << H;
+    std::cerr << " " << std::to_string(H);
     debug_out(T...);
 }
 
