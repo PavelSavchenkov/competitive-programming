@@ -30,53 +30,20 @@ bool remin(T& a, T b) {
 
 template<typename T>
 T gcd(T a, T b) {
-    return b ? gcd(b, a % b) : a;
+    a = std::abs(a);
+    b = std::abs(b);
+    while (b) {
+        a %= b;
+        std::swap(a, b);
+    }
+    return a;
 }
 
 template<typename T>
 T lcm(T a, T b) {
-    return a * (b / gcd(a, b));
-}
-
-template<typename T>
-std::ostream& operator <<(std::ostream& os, const std::vector<T>& vec) {
-    os << "{ ";
-    bool first = true;
-    for (const auto& it : vec) {
-        if (!first) {
-            os << ", ";
-        }
-        os << it;
-        first = false;
-    }
-    os << " }";
-    return os;
-}
-
-template<typename T>
-std::ostream& operator <<(std::ostream& os, const std::set<T>& s) {
-    os << "{ ";
-    bool first = true;
-    for (const auto& it : s) {
-        if (!first) {
-            os << ", ";
-        }
-        os << it;
-        first = false;
-    }
-    os << " }";
-    return os;
-}
-
-
-template<typename K, typename V>
-std::ostream& operator <<(std::ostream& os, const std::map<K, V>& m) {
-    os << "{" << "\n";
-    for (const auto& it : m) {
-        os << " " << it.first << " -> " << it.second << "\n";
-    }
-    os << "}" << "\n";
-    return os;
+    a = std::abs(a);
+    b = std::abs(b);
+    return a / gcd(a, b) * b;
 }
 
 double get_time() {
@@ -85,12 +52,20 @@ double get_time() {
 
 uint32_t mrand_32t() {
     static std::random_device rd;
+    // TODO: seed with 19937 bits, not with 32
     static std::mt19937 rng(rd());
     return rng();
 }
 
 uint64_t mrand_64t() {
     static std::random_device rd;
+    // TODO: seed with 19937 bits, not with 32
     static std::mt19937_64 rng(rd());
     return rng();
+}
+
+template<typename T>
+void make_unique(std::vector<T>& v) {
+    std::sort(std::begin(v), std::end(v));
+    v.erase(std::unique(std::begin(v), std::end(v)), std::end(v));
 }

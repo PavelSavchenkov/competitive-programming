@@ -19,11 +19,3 @@
 #define forn_3(i, s, n) for (int i = int(s); i < int(n); ++i)
 #define forn_2(i, n) forn_3(i, 0, n)
 
-#ifdef LOCAL
-    #define eprintf(...) fprintf(stderr, __VA_ARGS__), fflush(stderr)
-    #define debug(x) cerr << #x " = " << x << endl;
-#else
-    #define eprintf(...)
-    #define cerr if (false) cerr
-    #define debug(x)
-#endif
