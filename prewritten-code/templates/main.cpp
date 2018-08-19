@@ -4,6 +4,8 @@
 
 #include "prewritten-code/templates/common_header.hpp"
 
+using namespace std;
+
 /* *************************** TEMPLATE CODE ENDS HERE ******************************** */
 
 

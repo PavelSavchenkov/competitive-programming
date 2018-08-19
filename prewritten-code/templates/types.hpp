@@ -3,13 +3,11 @@
 #include <vector>
 #include <utility>
 
-using namespace std;
-
 using ll = long long;
 using ull = unsigned long long;
 using uint = unsigned int;
 using ld = long double;
-using vi = vector<int>;
-using pii = pair<int, int>;
-using vvi = vector<vi>;
-using vii = vector<pii>;
+using vi = std::vector<int>;
+using pii = std::pair<int, int>;
+using vvi = std::vector<vi>;
+using vii = std::vector<pii>;
