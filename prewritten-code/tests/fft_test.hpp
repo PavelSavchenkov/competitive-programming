@@ -4,10 +4,13 @@
 #include <numeric>
 
 #include "prewritten-code/templates/common_header.hpp"
-
 #include "prewritten-code/algorithms/fft.hpp"
 
 void fft_test() {
+    using std::cout;
+    using std::endl;
+    using std::to_string;
+
     {
         FFT<double> fft;
 
@@ -18,9 +21,9 @@ void fft_test() {
         auto res = fft.multiply<long long>(a, b);
 
         cout << "slow:" << endl;
-        cout << slowRes << endl;
+        cout << to_string(slowRes) << endl;
         cout << "fast:" << endl;
-        cout << res << endl;
+        cout << to_string(res) << endl;
 
         assert(slowRes == res);
         cout << "correctness: " << "OK" << endl << endl;
