@@ -22,10 +22,6 @@ string to_string(bool value) {
     return value ? "true" : "false";
 }
 
-string to_string(const char* s) {
-    return string(s);
-}
-
 template<typename T>
 string to_string(const vector<T>& vec) {
     string str = "{ ";
@@ -72,6 +68,18 @@ string to_string(const map<K, V>& m) {
     }
     str += " }";
     return str;
+}
+
+string to_string(const string& s) {
+    return "\"" + s + "\"";
+}
+
+string to_string(const char* s) {
+    return to_string(string(s));
+}
+
+string to_string(char ch) {
+    return "\'" + string(1, ch) + "\'";
 }
 
 }
