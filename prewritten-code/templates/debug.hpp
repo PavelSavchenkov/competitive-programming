@@ -8,7 +8,7 @@
 namespace std {
 
 template<typename A, typename B>
-string to_string(const pair<A, B>& p) {
+string to_string(const pair <A, B>& p) {
     string str;
     str += "(";
     str += to_string(p.first);
@@ -23,7 +23,7 @@ string to_string(bool value) {
 }
 
 template<typename T>
-string to_string(const vector<T>& vec) {
+string to_string(const vector <T>& vec) {
     string str = "{ ";
     bool first = true;
     for (const auto& it : vec) {
@@ -38,7 +38,7 @@ string to_string(const vector<T>& vec) {
 }
 
 template<typename T>
-string to_string(const set<T>& s) {
+string to_string(const set <T>& s) {
     string str = "{ ";
     bool first = true;
     for (const auto& it : s) {
@@ -54,7 +54,7 @@ string to_string(const set<T>& s) {
 
 
 template<typename K, typename V>
-string to_string(const map<K, V>& m) {
+string to_string(const map <K, V>& m) {
     string str = "{ ";
     bool first = true;
     for (const auto& it : m) {
@@ -98,7 +98,7 @@ void debug_out(Head H, Tail... T) {
     #define eprintf(...) fprintf(stderr, __VA_ARGS__), fflush(stderr)
     #define debug(...) std::cerr << "[" << #__VA_ARGS__ <<  "]:", debug_out(__VA_ARGS__);
 #else
-#define eprintf(...)
+    #define eprintf(...)
     #define cerr if (false) cerr
     #define debug(...)
 #endif
