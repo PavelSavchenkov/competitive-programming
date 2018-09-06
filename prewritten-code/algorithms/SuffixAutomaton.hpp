@@ -6,6 +6,9 @@
 #include <map>
 #include <set>
 #include <iostream>
+#include <algorithm>
+#include <cassert>
+#include <functional>
 
 template<int MAXLEN, int Lc = 'a', int Rc = 'z'>
 class SuffixAutomaton {
@@ -17,12 +20,12 @@ public:
     using nodePtr = node*;
 
 private:
-    std::array<node, MAXN> pool{};
+    std::vector<node> pool{};
     int ptr_pool{};
 
 public:
     struct node {
-        std::array<nodePtr, A> to{};
+        std::map<int, nodePtr> to{};
         nodePtr link{};
         int len{};
 
@@ -38,7 +41,7 @@ public:
         return pool.data() + pos;
     }
 
-    SuffixAutomaton() {
+    SuffixAutomaton() : pool(MAXN) {
         dropNodesPool();
     }
 
@@ -94,11 +97,9 @@ public:
                 return;
             }
             S[v].push_back(cur);
-            for (int c = Lc; c <= Rc; ++c) {
-                nodePtr to = v->to[encode(c)];
-                if (!to) {
-                    continue;
-                }
+            for (const auto& it : v->to) {
+                const int c = it.first;
+                const nodePtr to = it.second;
                 cur.push_back(c);
                 dfs(to, cur);
                 cur.pop_back();
@@ -140,7 +141,7 @@ private:
         nw->len = last->len + 1;
         last = nw;
 
-        for (; p && !p->to[c]; p = p->link) {
+        for (; p && !p->to.count(c); p = p->link) {
             p->to[c] = nw;
         }
 
@@ -160,7 +161,7 @@ private:
         clone->len = p->len + 1;
         clone->link = q->link;
         nw->link = q->link = clone;
-        for (; p && p->to[c] == q; p = p->link) {
+        for (; p && p->to.count(c) && p->to[c] == q; p = p->link) {
             p->to[c] = clone;
         }
     }
