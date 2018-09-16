@@ -82,6 +82,15 @@ string to_string(char ch) {
     return "\'" + string(1, ch) + "\'";
 }
 
+template<size_t N>
+string to_string(const bitset<N>& b) {
+    string res(N, '0');
+    for (size_t i = 0; i < N; ++i) {
+        res[i] = '0' + b[i];
+    }
+    return res;
+}
+
 }
 
 void debug_out() {
