@@ -10,8 +10,8 @@ int sign(const T& t) {
     return (t > 0) - (t < 0);
 }
 
-template<typename T>
-bool remax(T& a, T b) {
+template<typename T, typename U>
+bool remax(T& a, U b) {
     if (a < b) {
         a = b;
         return true;
@@ -19,8 +19,8 @@ bool remax(T& a, T b) {
     return false;
 }
 
-template<typename T>
-bool remin(T& a, T b) {
+template<typename T, typename U>
+bool remin(T& a, U b) {
     if (a > b) {
         a = b;
         return true;
