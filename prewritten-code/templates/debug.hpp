@@ -4,6 +4,7 @@
 #include <set>
 #include <map>
 #include <vector>
+#include <sstream>
 
 namespace std {
 
@@ -89,6 +90,13 @@ string to_string(const bitset<N>& b) {
         res[i] = '0' + b[i];
     }
     return res;
+}
+
+template <typename T>
+string to_string(const T& t) {
+    std::stringstream ss;
+    ss << t;
+    return ss.str();
 }
 
 }
