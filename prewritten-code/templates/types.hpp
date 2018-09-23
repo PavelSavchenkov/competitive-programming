@@ -11,3 +11,5 @@ using vi = std::vector<int>;
 using pii = std::pair<int, int>;
 using vvi = std::vector<vi>;
 using vii = std::vector<pii>;
+using vll = std::vector<ll>;
+using pll = std::pair<ll, ll>;
