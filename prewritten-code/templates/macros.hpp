@@ -25,3 +25,5 @@
 #define prev prev___
 #define next next___
 #define hash hash___
+#define left left___
+#define right right___
