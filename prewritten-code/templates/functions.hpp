@@ -4,6 +4,7 @@
 #include <set>
 #include <map>
 #include <random>
+#include <chrono>
 
 template<typename T>
 int sign(const T& t) {
@@ -50,17 +51,17 @@ double get_time() {
     return static_cast<double>(clock()) / CLOCKS_PER_SEC;
 }
 
+long long current_nanoseconds() {
+    return std::chrono::steady_clock::now().time_since_epoch().count();
+}
+
 uint32_t mrand_32t() {
-    static std::random_device rd;
-    // TODO: seed with 19937 bits, not with 32
-    static std::mt19937 rng(rd());
+    static std::mt19937 rng(current_nanoseconds());
     return rng();
 }
 
 uint64_t mrand_64t() {
-    static std::random_device rd;
-    // TODO: seed with 19937 bits, not with 32
-    static std::mt19937_64 rng(rd());
+    static std::mt19937_64 rng(current_nanoseconds());
     return rng();
 }
 
