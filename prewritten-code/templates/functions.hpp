@@ -55,13 +55,19 @@ long long current_nanoseconds() {
     return std::chrono::steady_clock::now().time_since_epoch().count();
 }
 
+#ifdef LOCAL
+long long default_seed = 1;
+#else
+long long default_seed = current_nanoseconds();
+#endif
+
 uint32_t mrand_32t() {
-    static std::mt19937 rng(current_nanoseconds());
+    static std::mt19937 rng(default_seed);
     return rng();
 }
 
 uint64_t mrand_64t() {
-    static std::mt19937_64 rng(current_nanoseconds());
+    static std::mt19937_64 rng(default_seed);
     return rng();
 }
 
