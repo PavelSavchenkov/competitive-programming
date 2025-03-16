@@ -70,10 +70,10 @@ struct Num {
         return *this;
     }
 
-    Num inv() const {
+    Num pow(int p) const {
+        assert(p >= 0);
         int ans = 1;
         int xx = x;
-        int p = MOD - 2;
         while (p) {
             if (p & 1) {
                 ans = (ans * 1ll * xx) % MOD;
@@ -81,8 +81,13 @@ struct Num {
             xx = (xx * 1ll * xx) % MOD;
             p >>= 1;
         }
-        assert((x * 1ll * ans) % MOD == 1);
         return Num(ans);
+    }
+
+    Num inv() const {
+        auto ans = pow(MOD - 2);
+        assert((x * 1ll * ans.x) % MOD == 1);
+        return ans;
     }
 
     Num& operator -= (const Num& other) {
